@@ -5,7 +5,7 @@ const deleteButton = document.querySelector('[data-delete]');
 const allClearButton = document.querySelector('[data-all-clear]')
 const previousOperandTextElement = document.querySelector('[data-previous-operand]');
 const currentOperandTextElement = document.querySelector('[data-current-operand]');
-// const decimalButton = document.querySelector('[data-decimal]');
+
 
 let operator = '';
 let currentValue = '';
@@ -115,3 +115,30 @@ equalsButton.addEventListener('click', () => {
     calculate();
 
 });
+
+//  keyboard functionality added
+function keyboardFunction(e) {
+    // console.log(e.key)
+    if (e.key >= 0 && e.key <= 9) {
+        handleNum(e.key);
+        currentOperandTextElement.textContent = currentValue;
+    }
+    else if (e.key == '+' || e.key == '-' || e.key == '*' || e.key == '/') {
+        operation(e.key);
+    } else if (e.key == 'Delete') {
+        clear();
+    } else if (e.key == 'Backspace') {
+        deleteNum();
+    } else if (e.key == 'Enter') {
+        calculate();
+    } else if (e.key == '.') {
+        if (!currentValue.includes('.')) {
+            handleNum(e.key);
+            currentOperandTextElement.textContent = currentValue;
+        }
+    }
+
+}
+
+
+document.addEventListener('keyup', keyboardFunction)
